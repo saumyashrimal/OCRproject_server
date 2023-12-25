@@ -55,44 +55,17 @@ fileApis.post('/upload', upload.single('image'), (req, res) => {
       return res.status(400).send('No file uploaded.');
     }
     const filePath = req.file.path;
-
-    let result = detectImage(filePath);
-    console.log("GCP response = ", result);
-    // let str = `'บัตรประจําตัวประชาชน Thai National ID Card\n' +
-    // '0 1234 56789 10 1\n' +
-    // 'เลขประจําตัวประชาชน\n' +
-    // 'Identification Number\n' +
-    // 'ชื่อตัวและชื่อสกุล\n' +
-    // 'Name\n' +
-    // 'FO\n' +
-    // 'Koyruk\n' +
-    // 'Last Name\n' +
-    // 'เกิดวันที่\n' +
-    // '14 ม.ค. 2523\n' +
-    // 'Date of Birth\n' +
-    // '14 Jan 1980\n' +
-    // 'ที่อยู่ 2300 คาโลรามา วอชิงตัน ดี.ซี. 20007\n' +
-    // '2 ม.ค. 2566\n' +
-    // 'วันออกบัตร\n' +
-    // '2 Jan 2028\n' +
-    // 'Date of Issue\n' +
-    // 'นาย หมีน้อยคอยรัก\n' +
-    // 'Mr. Meenoy\n' +
-    // '(นายคน บุญคุ้ม)\n' +
-    // 'เจ้าพนักงานออกบัตร\n' +
-    // '180\n' +
-    // '170\n' +
-    // '1)\n' +
-    // '1 ม.ค. 2573\n' +
-    // 'วันบัตรหมดอายุ\n' +
-    // '1Jan 2032\n' +
-    // 'Date of Expiry\n' +
-    // '180\n' +
-    // '170\n' +
-    // '160'`
+    let cRes = {
+        "identification_number": "1 2345 12345 23",
+        "name": "Mr. Meenoy",
+        "last_name": "kreekoy",
+        "date_of_birth": "20/06/1980",
+        "date_of_issue": "21/05/2020",
+        "date_of_expiry": "21/05/2029"
+    };
+    // let result = detectImage(filePath);
     // let data = processData(str);
-    // console.log("data = ", data);
-    return res.status(200).send('File uploaded successfully.');
+    return res.status(200).send({response: cRes});
   });
 
 module.exports = fileApis;

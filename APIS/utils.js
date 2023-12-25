@@ -1,11 +1,12 @@
 const vision = require('@google-cloud/vision');
-
+const private_key = process.env.private_key;
+const client_email = process.env.client_email;
 
 const CONFIG =  
 {
     Credential: {
-        private_key: CREDENTIALS.private_key,
-        client_email: CREDENTIALS.client_email
+        private_key,
+        client_email
     }
 }
 
