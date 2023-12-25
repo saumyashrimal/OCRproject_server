@@ -6,10 +6,9 @@ OCRApiRoute.use(express.json());
 
 OCRApiRoute.post("/addOCR", async (req,res) => {
     try{
-        const detailsCollection = req.app.get("detailsCollection");
-        const obj = req.body;
-        await detailsCollection.insertOne({obj});
-
+                const detailsCollection = req.app.get("detailsCollection");
+        const {identification_number, name, last_name, date_of_birth, date_of_issue, date_of_expiry} = req.body;
+        await detailsCollection.insertOne({identification_number, name, last_name, date_of_birth, date_of_issue, date_of_expiry});
         res.status(200).send("details Added");
     } catch(err) {
         throw(err);
@@ -19,10 +18,10 @@ OCRApiRoute.post("/addOCR", async (req,res) => {
 OCRApiRoute.get("/getOCRDetails", async (req,res) => {
     try{
         const detailsCollection = req.app.get("detailsCollection");
-        const details = detailsCollection.find();
-        res.status(200).setDefaultEncoding({
+        const ans = await detailsCollection.find().toArray();
+        res.status(200).send({
             message: "success",
-            response: details
+            response: ans
         });
     } catch(err) {
         throw(err);

@@ -1,11 +1,13 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs'); // Require the 'fs' module
+const fs = require('fs');
 const fileApis = express.Router();
 const {detectImage, processData} = require('./utils');
 fileApis.use(express.json());
-const uploadDirectory = path.join(__dirname, 'uploads'); // Define the path for 'uploads' directory
+
+// Define the path for 'uploads' directory
+const uploadDirectory = path.join(__dirname, 'uploads');
 
 // Check if the 'uploads' directory exists, if not, create it
 if (!fs.existsSync(uploadDirectory)) {
@@ -65,7 +67,7 @@ fileApis.post('/upload', upload.single('image'), (req, res) => {
     };
     // let result = detectImage(filePath);
     // let data = processData(str);
-    return res.status(200).send({response: cRes});
+    res.status(200).send({response: cRes});
   });
 
 module.exports = fileApis;
