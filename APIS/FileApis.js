@@ -51,23 +51,15 @@ const upload = multer({
   });
 
 // Set up a route to handle file uploads
-fileApis.post('/upload', upload.single('image'), (req, res) => {
+fileApis.post('/upload', upload.single('image'), async (req, res) => {
     console.log("req = ", req.file);
     if (!req.file) {
       return res.status(400).send('No file uploaded.');
     }
     const filePath = req.file.path;
-    let cRes = {
-        "identification_number": "1 2345 12345 23",
-        "name": "Mr. Meenoy",
-        "last_name": "kreekoy",
-        "date_of_birth": "20/06/1980",
-        "date_of_issue": "21/05/2020",
-        "date_of_expiry": "21/05/2029"
-    };
-    // let result = detectImage(filePath);
-    // let data = processData(str);
-    res.status(200).send({response: cRes});
+    let str = await detectImage(filePath);
+    let data = processData(JSON.stringify(str));
+    res.status(200).send({response: data});
   });
 
 module.exports = fileApis;
